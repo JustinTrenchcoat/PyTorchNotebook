@@ -22,4 +22,28 @@ class LinearModel(torch.nn.Module):
         y_pred = self.linear(x)
         return y_pred
     
+#create an instance of LinearModel class, called model.
 model = LinearModel()
+# creates a criterion that measures MSE between input x and target y
+# we set size_average False to make MSELoss sum the loss but not average it
+criterion = torch.nn.MSELoss(size_average=False)
+# implements stochastic gradient descent
+optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
+
+for epoch in range(100):
+    y_pred = model(x_data)
+    loss = criterion(y_pred, y_data)
+    print(epoch, loss)
+
+    optimizer.zero_grad()
+    loss.backward()
+    optimizer.step()
+
+#output weight and bias
+print('w = ', model.linear.weight.item())
+print('b = ', model.linear.bias.item())
+
+#test model
+x_test = torch.Tensor([[4.0]])
+y_test = model(x_test)
+print('y_pred = ', y_test.data)

@@ -26,7 +26,6 @@ model = LogisticRegressionModel()
 #------------------------------------------------------
 criterion = torch.nn.BCELoss(reduction='sum')
 optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
-
 #---------------------------------------------------------------
 for epoch in range(1000):
     y_pred = model(x_data)
